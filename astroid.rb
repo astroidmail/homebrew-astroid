@@ -13,12 +13,15 @@ class Astroid < Formula
   depends_on "webkitgtk@2.4.11"
 
   def install
-    # this library is named differently in macOS
+    # these libraries are named differently in macOS
     inreplace "SConstruct", "boost_thread", "boost_thread-mt"
+    inreplace "SConstruct", "boost_log'", "boost_log-mt'"
 
     args = [
       "--propagate-environment",
-      "prefix=#{prefix}",
+      "--prefix=#{prefix}",
+      "--disable-embedded-editor",
+      "--disable-plugins",
     ]
     scons "install", *args
   end
