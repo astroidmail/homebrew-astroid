@@ -27,6 +27,10 @@ class WebkitgtkAT2411 < Formula
               "#import <JavaScriptCore/JSCallbackFunction.h>",
               "#import <JavaScriptCore/API/JSCallbackFunction.h>"
 
+    inreplace "Source/JavaScriptCore/API/JSBase.h",
+              "JSC_OBJC_API_ENABLED",
+              "JSC_OBJC_API_ENABLED_nei_takk"
+
     # put icu4c headers first so we don't try to mix and match with the
     # provided stand-ins
     inreplace "GNUmakefile.am",
