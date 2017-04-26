@@ -10,7 +10,10 @@ class Astroid < Formula
   depends_on "libpeas"
   depends_on "notmuch"
   depends_on "boost"
+  depends_on "vte3"
   depends_on "webkitgtk@2.4.11"
+  depends_on "gtkmm3"
+  depends_on "gnome-icon-theme"
 
   def install
     # these libraries are named differently in macOS
