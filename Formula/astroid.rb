@@ -2,8 +2,8 @@ class Astroid < Formula
   desc "A graphical threads-with-tags style, lightweight and fast, email client for notmuch, inspired by sup and others"
   homepage "http://astroidmail.github.io/"
 
-  url "https://github.com/astroidmail/astroid/archive/v0.8.tar.gz"
-  sha256 "867346e745726173c7728a1396311ee7558ec13098f93ea8c58cb3e63d5064f2"
+  url "https://github.com/astroidmail/astroid/archive/v0.9.tar.gz"
+  sha256 "bb0bd5914af1f835393f101eff577ac5e0f35b67cc565ae0d6947a2d98ae9dd8"
 
   depends_on "scons" => :build
   depends_on "libsass"
