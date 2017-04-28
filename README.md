@@ -1,4 +1,4 @@
-This is a macOS Homebrew Tap (third party repository) for [astroidmail](http://astroidmail.github.io/) on OSX.
+This is a Mac OS Homebrew Tap (third party repository) for [astroidmail](http://astroidmail.github.io/) on OSX.
 
 Once you have [Homebrew running](https://brew.sh/), it should be as easy as:
 ```
