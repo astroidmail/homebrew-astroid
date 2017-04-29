@@ -25,6 +25,7 @@ class Astroid < Formula
       "--prefix=#{prefix}",
       "--disable-embedded-editor",
       "--disable-plugins",
+      "--enable-debug=false",
     ]
     scons "install", *args
   end
