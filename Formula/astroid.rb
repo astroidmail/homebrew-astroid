@@ -6,6 +6,7 @@ class Astroid < Formula
   version "0.9"
   url "https://github.com/astroidmail/astroid/archive/v#{version}.tar.gz"
   sha256 "bb0bd5914af1f835393f101eff577ac5e0f35b67cc565ae0d6947a2d98ae9dd8"
+  head "https://github.com/astroidmail/astroid.git"
 
   depends_on "scons" => :build
   depends_on "libsass"
@@ -29,6 +30,8 @@ class Astroid < Formula
       "--disable-plugins",
       "--release=v#{version}",
     ]
+    # overwrite --release if --HEAD with `git` magic variable for SCons
+    args += [ "--release=git" ] if build.head?
     scons "install", *args
   end
 
