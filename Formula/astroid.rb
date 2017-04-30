@@ -2,8 +2,11 @@ class Astroid < Formula
   desc "A graphical threads-with-tags style, lightweight and fast, email client for notmuch, inspired by sup and others"
   homepage "http://astroidmail.github.io/"
 
-  url "https://github.com/astroidmail/astroid/archive/v0.9.tar.gz"
+  # not necessary for homebrew but nice to only bump it in one place
+  version "0.9"
+  url "https://github.com/astroidmail/astroid/archive/v#{version}.tar.gz"
   sha256 "bb0bd5914af1f835393f101eff577ac5e0f35b67cc565ae0d6947a2d98ae9dd8"
+  head "https://github.com/astroidmail/astroid.git"
 
   depends_on "scons" => :build
   depends_on "libsass"
@@ -25,8 +28,10 @@ class Astroid < Formula
       "--prefix=#{prefix}",
       "--disable-embedded-editor",
       "--disable-plugins",
-      "--enable-debug=false",
+      "--release=v#{version}",
     ]
+    # overwrite --release if --HEAD with `git` magic variable for SCons
+    args += [ "--release=git" ] if build.head?
     scons "install", *args
   end
 
