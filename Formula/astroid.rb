@@ -33,6 +33,7 @@ class Astroid < Formula
       "--disable-embedded-editor",
       "--disable-plugins",
       "--release=v#{version}",
+      "-j#{ENV.make_jobs}",
     ]
     # overwrite --release if --HEAD with `git` magic variable for SCons
     args += [ "--release=git" ] if build.head?
