@@ -8,6 +8,7 @@ class WebkitgtkAT2411 < Formula
   depends_on "icu4c"
   depends_on "gtk+3"
   depends_on "libsoup"
+  depends_on "webp"
   depends_on "pkg-config" => :build
   depends_on "autoconf" => :build
   depends_on "automake" => :build
