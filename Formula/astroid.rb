@@ -23,6 +23,10 @@ class Astroid < Formula
     inreplace "SConstruct", "boost_thread", "boost_thread-mt"
     inreplace "SConstruct", "boost_log'", "boost_log-mt'"
 
+    # Currently requires gmime 2.6.x. Use the library built with notmuch:
+    # see https://github.com/astroidmail/homebrew-astroid/pull/7
+    ENV.append_path "PKG_CONFIG_PATH", "/usr/local/opt/notmuch/gmime/lib/pkgconfig"
+
     args = [
       "--propagate-environment",
       "--prefix=#{prefix}",
