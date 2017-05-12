@@ -18,22 +18,14 @@ class Astroid < Formula
   depends_on "gtkmm3"
   depends_on "gnome-icon-theme"
 
-  # Currently requires gmime 2.6.x
-  resource "gmime" do
-    url "https://download.gnome.org/sources/gmime/2.6/gmime-2.6.23.tar.xz"
-    sha256 "7149686a71ca42a1390869b6074815106b061aaeaaa8f2ef8c12c191d9a79f6a"
-  end
-
-
   def install
-    resource("gmime").stage do
-      system "./configure", "--prefix=#{prefix}/gmime"
-      system "make", "install"
-      ENV.append_path "PKG_CONFIG_PATH", "#{prefix}/gmime/lib/pkgconfig"
-    end
     # these libraries are named differently in macOS
     inreplace "SConstruct", "boost_thread", "boost_thread-mt"
     inreplace "SConstruct", "boost_log'", "boost_log-mt'"
+
+    # Currently requires gmime 2.6.x. Use the library built with notmuch:
+    # see https://github.com/astroidmail/homebrew-astroid/pull/7
+    ENV.append_path "PKG_CONFIG_PATH", "/usr/local/opt/notmuch/gmime/lib/pkgconfig"
 
     args = [
       "--propagate-environment",
