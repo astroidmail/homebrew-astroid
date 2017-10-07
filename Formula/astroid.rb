@@ -8,7 +8,8 @@ class Astroid < Formula
   sha256 "7d58a813a9e8f840475226a254743e0caf50f1baf830256ce17e135b71f34714"
   head "https://github.com/astroidmail/astroid.git"
 
-  depends_on "scons" => :build
+  depends_on "meson" => :build
+  depends_on "ninja" => :build
   depends_on "libsass"
   depends_on "libpeas"
   depends_on "notmuch"
@@ -19,25 +20,18 @@ class Astroid < Formula
   depends_on "gnome-icon-theme"
 
   def install
-    # these libraries are named differently in macOS
-    inreplace "SConstruct", "boost_thread", "boost_thread-mt"
-    inreplace "SConstruct", "boost_log'", "boost_log-mt'"
-
-    # Currently requires gmime 2.6.x. Use the library built with notmuch:
-    # see https://github.com/astroidmail/homebrew-astroid/pull/7
-    ENV.append_path "PKG_CONFIG_PATH", "/usr/local/opt/notmuch/gmime/lib/pkgconfig"
+    ENV.append_path "PKG_CONFIG_PATH", "/usr/local/opt/webkitgtk@2.4.11//lib/pkgconfig"
+    ENV.append_path "BOOST_ROOT", "/usr/local/"
 
     args = [
-      "--propagate-environment",
       "--prefix=#{prefix}",
-      "--disable-embedded-editor",
-      "--disable-plugins",
-      "--release=v#{version}",
-      "-j#{ENV.make_jobs}",
+      "-Ddisable-embedded-editor=true",
+      "-Ddisable-plugins=true",
+      "-Ddisable-tests=true",
     ]
-    # overwrite --release if --HEAD with `git` magic variable for SCons
-    args += [ "--release=git" ] if build.head?
-    scons "install", *args
+    system "meson", "build", *args
+    system "sed", "-i", "-e", "s/boost_log\ /boost_log-mt\ /g", "build/build.ninja"
+    system "ninja -C build install"
   end
 
   test do
