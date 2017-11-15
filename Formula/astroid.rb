@@ -8,7 +8,7 @@ class Astroid < Formula
   sha256 "7d58a813a9e8f840475226a254743e0caf50f1baf830256ce17e135b71f34714"
   head "https://github.com/astroidmail/astroid.git"
 
-  depends_on "meson" => :build
+  depends_on "cmake" => :build
   depends_on "ninja" => :build
   depends_on "libsass"
   depends_on "libpeas"
