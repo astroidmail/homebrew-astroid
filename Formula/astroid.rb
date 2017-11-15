@@ -9,7 +9,7 @@ class Astroid < Formula
   head "https://github.com/astroidmail/astroid.git"
 
   depends_on "cmake" => :build
-  depends_on "ninja" => :build
+  depends_on "ninja" => :build if build.head?
   depends_on "libsass"
   depends_on "libpeas"
   depends_on "notmuch"
@@ -29,11 +29,13 @@ class Astroid < Formula
       "-DDISABLE_PLUGINS:BOOL=OFF",
       "-DDISABLE_TERMINAL:BOOL=OFF",
       "-DENABLE_PROFILING:BOOL=OFF",
-      "-H.",
-      "-Bbuild",
-      "-GNinja",
+      "-GUnix\ Makefiles",
     ]
-    system "cmake", *args
+    args += [
+      "--release=git",
+      "-GNinja",
+    ] if build.head?
+    system "cmake", *args, "-H.", "-Bbuild"
     system "cmake", "--build", "build", "--target", "install"
   end
 
