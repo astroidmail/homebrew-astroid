@@ -20,18 +20,21 @@ class Astroid < Formula
   depends_on "gnome-icon-theme"
 
   def install
-    ENV.append_path "PKG_CONFIG_PATH", "/usr/local/opt/webkitgtk@2.4.11//lib/pkgconfig"
-    ENV.append_path "BOOST_ROOT", "/usr/local/"
 
     args = [
-      "--prefix=#{prefix}",
-      "-Ddisable-embedded-editor=true",
-      "-Ddisable-plugins=true",
-      "-Ddisable-tests=true",
+      "-DCMAKE_BUILD_TYPE:STRING=Release",
+      "-DCMAKE_INSTALL_PREFIX:PATH=#{prefix}",
+      "-DDISABLE_EMBEDDED_EDITOR:BOOL=OFF",
+      "-DDISABLE_LIBSASS:BOOL=OFF",
+      "-DDISABLE_PLUGINS:BOOL=OFF",
+      "-DDISABLE_TERMINAL:BOOL=OFF",
+      "-DENABLE_PROFILING:BOOL=OFF",
+      "-H.",
+      "-Bbuild",
+      "-GNinja",
     ]
-    system "meson", "build", *args
-    system "sed", "-i", "-e", "s/boost_log\ /boost_log-mt\ /g", "build/build.ninja"
-    system "ninja -C build install"
+    system "cmake", *args
+    system "cmake", "--build", "build", "--target", "install"
   end
 
   test do
