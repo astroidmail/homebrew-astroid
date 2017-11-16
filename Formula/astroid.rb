@@ -8,8 +8,9 @@ class Astroid < Formula
   sha256 "7d58a813a9e8f840475226a254743e0caf50f1baf830256ce17e135b71f34714"
   head "https://github.com/astroidmail/astroid.git"
 
-  depends_on "meson" => :build
-  depends_on "ninja" => :build
+  depends_on "cmake" => :build
+  # only use ninja if building devel
+  depends_on "ninja" => :build if build.head?
   depends_on "libsass"
   depends_on "libpeas"
   depends_on "notmuch"
@@ -20,18 +21,24 @@ class Astroid < Formula
   depends_on "gnome-icon-theme"
 
   def install
-    ENV.append_path "PKG_CONFIG_PATH", "/usr/local/opt/webkitgtk@2.4.11//lib/pkgconfig"
-    ENV.append_path "BOOST_ROOT", "/usr/local/"
 
     args = [
-      "--prefix=#{prefix}",
-      "-Ddisable-embedded-editor=true",
-      "-Ddisable-plugins=true",
-      "-Ddisable-tests=true",
+      "-DCMAKE_BUILD_TYPE:STRING=Release",
+      "-DCMAKE_INSTALL_PREFIX:PATH=#{prefix}",
+      "-DDISABLE_EMBEDDED_EDITOR:BOOL=OFF",
+      "-DDISABLE_LIBSASS:BOOL=OFF",
+      "-DDISABLE_PLUGINS:BOOL=OFF",
+      "-DDISABLE_TERMINAL:BOOL=OFF",
+      "-DENABLE_PROFILING:BOOL=OFF",
+      "-GUnix\ Makefiles",
     ]
-    system "meson", "build", *args
-    system "sed", "-i", "-e", "s/boost_log\ /boost_log-mt\ /g", "build/build.ninja"
-    system "ninja -C build install"
+  # only use ninja if building devel, ninja is possibly faster
+    args += [
+      "--release=git",
+      "-GNinja",
+    ] if build.head?
+    system "cmake", *args, "-H.", "-Bbuild"
+    system "cmake", "--build", "build", "--target", "install"
   end
 
   test do
