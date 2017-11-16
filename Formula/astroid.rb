@@ -9,6 +9,7 @@ class Astroid < Formula
   head "https://github.com/astroidmail/astroid.git"
 
   depends_on "cmake" => :build
+  # only use ninja if building devel
   depends_on "ninja" => :build if build.head?
   depends_on "libsass"
   depends_on "libpeas"
@@ -31,6 +32,7 @@ class Astroid < Formula
       "-DENABLE_PROFILING:BOOL=OFF",
       "-GUnix\ Makefiles",
     ]
+  # only use ninja if building devel, ninja is possibly faster
     args += [
       "--release=git",
       "-GNinja",
