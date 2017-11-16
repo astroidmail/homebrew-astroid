@@ -34,7 +34,7 @@ class Astroid < Formula
     ]
   # only use ninja if building devel, ninja is possibly faster
     args += [
-      "--release=git",
+      "-DCMAKE_BUILD_TYPE:STRING=Debug",
       "-GNinja",
     ] if build.head?
     system "cmake", *args, "-H.", "-Bbuild"
