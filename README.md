@@ -7,7 +7,7 @@ $ brew tap astroidmail/astroid
 
 You can then install with
 ```
-$ brew install astroid
+$ brew install astroid [--HEAD]
 ```
 which will also build a special webkit dependency. This can take a while.
 
