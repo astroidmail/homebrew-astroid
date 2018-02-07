@@ -3,9 +3,9 @@ class Astroid < Formula
   homepage "http://astroidmail.github.io/"
 
   # not necessary for homebrew but nice to only bump it in one place
-  version "0.9.1"
+  version "0.11"
   url "https://github.com/astroidmail/astroid/archive/v#{version}.tar.gz"
-  sha256 "7d58a813a9e8f840475226a254743e0caf50f1baf830256ce17e135b71f34714"
+  sha256 "f2ab06859e3d2d6a8e947b6fd640de61b8c49cd0ebbbaaa2df9527ce2efa40db"
   head "https://github.com/astroidmail/astroid.git"
 
   depends_on "cmake" => :build
