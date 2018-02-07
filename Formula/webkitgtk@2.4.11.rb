@@ -10,7 +10,6 @@ class WebkitgtkAT2411 < Formula
     #       (and to remove this note, of course)
     #
     root_url "https://github.com/c-alpha/homebrew-astroid/raw/webkitgtk%402.4.11-bottle/bottles"
-    rebuild 1
     sha256 "92e3b2c6c9ce1de8f66ee0671aa9cbea12acb6e6e93178c98648c57e742e5792" => :high_sierra
   end
   
