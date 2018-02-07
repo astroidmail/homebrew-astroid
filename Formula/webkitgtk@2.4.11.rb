@@ -4,6 +4,16 @@ class WebkitgtkAT2411 < Formula
   url "https://webkitgtk.org/releases/webkitgtk-2.4.11.tar.xz"
   sha256 "588aea051bfbacced27fdfe0335a957dca839ebe36aa548df39c7bbafdb65bf7"
 
+  bottle do
+    # NOTE: when you merge this PR, be sure to update the the URL below to:
+    #       https://github.com/astroidmail/homebrew-astroid/raw/master/bottles
+    #       (and to remove this note, of course)
+    #
+    root_url "https://github.com/c-alpha/homebrew-astroid/raw/webkitgtk%402.4.11-bottle/bottles"
+    rebuild 1
+    sha256 "92e3b2c6c9ce1de8f66ee0671aa9cbea12acb6e6e93178c98648c57e742e5792" => :high_sierra
+  end
+  
   depends_on "gettext"
   depends_on "icu4c"
   depends_on "gtk+3"
