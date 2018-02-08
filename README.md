@@ -9,5 +9,5 @@ You can then install with
 ```
 $ brew install astroid [--HEAD]
 ```
-which will also build a special webkit dependency. This can take a while.
+which will also pull down a webkit dependency as a bottle. If you choose `--build-from-source` then you will have to wait a long time to compile, and you may have some issues we won't support :)
 
