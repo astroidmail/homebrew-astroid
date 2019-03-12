@@ -3,9 +3,9 @@ class Astroid < Formula
   homepage "http://astroidmail.github.io/"
 
   # not necessary for homebrew but nice to only bump it in one place
-  version "0.11"
+  version "0.14"
   url "https://github.com/astroidmail/astroid/archive/v#{version}.tar.gz"
-  sha256 "f2ab06859e3d2d6a8e947b6fd640de61b8c49cd0ebbbaaa2df9527ce2efa40db"
+  # sha256 "f2ab06859e3d2d6a8e947b6fd640de61b8c49cd0ebbbaaa2df9527ce2efa40db"
   head "https://github.com/astroidmail/astroid.git"
 
   depends_on "cmake" => :build
@@ -16,9 +16,10 @@ class Astroid < Formula
   depends_on "notmuch"
   depends_on "boost"
   depends_on "vte3"
-  depends_on "webkitgtk@2.4.11"
+  depends_on "webkitgtk"
   depends_on "gtkmm3"
   depends_on "gnome-icon-theme"
+  depends_on "protobuf-c"
 
   def install
 
@@ -30,6 +31,7 @@ class Astroid < Formula
       "-DDISABLE_PLUGINS:BOOL=OFF",
       "-DDISABLE_TERMINAL:BOOL=OFF",
       "-DENABLE_PROFILING:BOOL=OFF",
+      "-DDISABLE_DOCS=ON",
       "-GUnix\ Makefiles",
     ]
   # only use ninja if building devel, ninja is possibly faster
