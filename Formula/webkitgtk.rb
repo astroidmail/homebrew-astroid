@@ -60,6 +60,7 @@ class Webkitgtk < Formula
       -DENABLE_WEB_AUDIO=OFF
       -DUSE_LIBHYPHEN=OFF
       -DUSE_SYSTEM_MALLOC=ON
+      -DCMAKE_CXX_FLAGS=-Wno-unused-lambda-capture
     ]
 
     mkdir "build" do
@@ -213,3 +214,21 @@ diff -Naur a/Source/WebCore/platform/gtk/ScrollAnimatorGtk.cpp b/Source/WebCore/
 
      m_scrollHistory.append(event);
 
+diff -Naur a/Source/WTF/wtf/Optional.h b/Source/WTF/wtf/Optional.h
+--- a/Source/WTF/wtf/Optional.h	2019-02-28 11:08:20.000000000 +0100
++++ b/Source/WTF/wtf/Optional.h	2019-03-12 19:42:38.000000000 +0100
+@@ -277,12 +277,14 @@
+ constexpr nullopt_t nullopt{nullopt_t::init()};
+
+
++# if !defined(_LIBCPP_VERSION) || _LIBCPP_VERSION < 7000
+ // 20.5.8, class bad_optional_access
+ class bad_optional_access : public std::logic_error {
+ public:
+   explicit bad_optional_access(const std::string& what_arg) : std::logic_error{what_arg} {}
+   explicit bad_optional_access(const char* what_arg) : std::logic_error{what_arg} {}
+ };
++# endif // _LIBCPP_VERSION < 7000
+
+
+ template <class T>
